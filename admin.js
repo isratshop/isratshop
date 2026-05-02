@@ -10,15 +10,6 @@ if (!settings || Object.keys(settings).length === 0) {
     settings = typeof initialSettings !== 'undefined' ? { ...initialSettings } : {};
 }
 
-// Admin Reset Function (Clears browser memory to show data.js)
-window.resetAdminData = () => {
-    if (confirm("This will clear your browser's temporary memory and show the products from your data.js file. Continue?")) {
-        localStorage.removeItem('shop_products');
-        localStorage.removeItem('shop_settings');
-        location.reload();
-    }
-};
-
 // DOM Elements
 const adminProductList = document.getElementById('admin-product-list');
 const productFormModal = document.getElementById('product-form-modal');

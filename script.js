@@ -13,6 +13,15 @@ if (savedSettings && Object.keys(savedSettings).length > 0) {
     settings = savedSettings;
 }
 
+// Reset Function (Clears browser memory to show data.js)
+window.resetData = () => {
+    if (confirm("This will clear your browser's temporary memory and show the products from your data.js file. Continue?")) {
+        localStorage.removeItem('shop_products');
+        localStorage.removeItem('shop_settings');
+        location.reload();
+    }
+};
+
 // Currency Formatter for Bangla Taka
 function formatTaka(amount) {
     return '৳' + Number(amount).toLocaleString('en-IN', {

@@ -451,6 +451,26 @@ footer {
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.reset-link-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.reset-link-btn:hover {
+    color: var(--white);
 }
 
 .nav-extra {

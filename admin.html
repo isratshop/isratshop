@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Israt Jahan Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Developer Asif Admin</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">View Site</a></li>
+                <li><a href="admin.html" class="active">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <section class="admin-container">
+            <div class="admin-header">
+                <h2>General Site Settings</h2>
+            </div>
+
+            <div class="admin-content settings-grid">
+                <form id="site-settings-form" class="admin-form settings-form">
+                    <div class="form-group">
+                        <label for="set-site-name">Website Name</label>
+                        <input type="text" id="set-site-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="set-hero-title">Hero Title</label>
+                        <input type="text" id="set-hero-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hero Image</label>
+                        <div class="upload-container">
+                            <input type="text" id="set-hero-img-url" placeholder="Image URL or filename" required>
+                            <label for="hero-file-input" class="upload-btn">
+                                <i class="fas fa-upload"></i> Browse
+                            </label>
+                            <input type="file" id="hero-file-input" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="set-hero-sub">Hero Subtitle</label>
+                        <input type="text" id="set-hero-sub" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="set-email">Contact Email</label>
+                        <input type="email" id="set-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="set-phone">Contact Phone</label>
+                        <input type="text" id="set-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="set-fb">Facebook URL</label>
+                        <input type="url" id="set-fb" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="set-about">About Us Paragraph</label>
+                        <textarea id="set-about" required style="height: 150px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Save All Settings</button>
+                </form>
+            </div>
+
+            <div class="admin-header" style="margin-top: 3rem;">
+                <h2>Product Management</h2>
+                <div class="admin-actions">
+                    <button id="generate-code-btn" class="btn" style="background-color: #f39c12; margin-right: 10px;">
+                        <i class="fas fa-code"></i> Get Code for GitHub
+                    </button>
+                    <button id="add-product-btn" class="btn"><i class="fas fa-plus"></i> Add New Product</button>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-product-list">
+                        <!-- Products will be listed here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Form Modal -->
+    <div id="product-form-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-form-modal">&times;</span>
+            <h2 id="form-title">Add New Product</h2>
+            <form id="product-form" class="admin-form">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label for="prod-name">Product Name</label>
+                    <input type="text" id="prod-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="prod-price">Price ($)</label>
+                    <input type="number" id="prod-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Image</label>
+                    <div class="upload-container">
+                        <input type="text" id="prod-image" placeholder="Image URL or filename" required>
+                        <label for="prod-file-input" class="upload-btn">
+                            <i class="fas fa-upload"></i> Browse
+                        </label>
+                        <input type="file" id="prod-file-input" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="prod-desc">Description</label>
+                    <textarea id="prod-desc" required></textarea>
+                </div>
+                <button type="submit" class="btn" id="save-product-btn">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Code Export Modal -->
+    <div id="code-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-button" id="close-code-modal">&times;</span>
+            <h2>Code for GitHub</h2>
+            <p>Copy the code below and replace the <strong>Initial Data</strong> in your files to make changes public.</p>
+            <div style="margin-top: 1rem;">
+                <h4>For admin.js & script.js:</h4>
+                <textarea id="generated-code" readonly style="width: 100%; height: 300px; font-family: monospace; margin-top: 0.5rem; padding: 1rem; background: #f8f9fa;"></textarea>
+            </div>
+            <button class="btn" onclick="copyGeneratedCode()" style="margin-top: 1rem;">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

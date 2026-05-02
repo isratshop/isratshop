@@ -1,12 +1,16 @@
-// Load Products and Settings from Data file (data.js) or LocalStorage
-let products = JSON.parse(localStorage.getItem('shop_products'));
-if (!products || products.length === 0) {
-    products = typeof initialProducts !== 'undefined' ? initialProducts : [];
+// Load Products and Settings from Data file (data.js) - FORCED PRIORITY
+let products = typeof initialProducts !== 'undefined' ? initialProducts : [];
+let settings = typeof initialSettings !== 'undefined' ? initialSettings : {};
+
+// Only use localStorage if it actually has more products (meaning the admin added some locally)
+const savedProducts = JSON.parse(localStorage.getItem('shop_products'));
+if (savedProducts && savedProducts.length > products.length) {
+    products = savedProducts;
 }
 
-let settings = JSON.parse(localStorage.getItem('shop_settings'));
-if (!settings || Object.keys(settings).length === 0) {
-    settings = typeof initialSettings !== 'undefined' ? initialSettings : {};
+const savedSettings = JSON.parse(localStorage.getItem('shop_settings'));
+if (savedSettings && Object.keys(savedSettings).length > 0) {
+    settings = savedSettings;
 }
 
 // Currency Formatter for Bangla Taka

@@ -67,9 +67,13 @@
                 <div class="form-group">
                     <input type="text" id="cust-phone" placeholder="Phone Number" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group location-group">
                     <textarea id="cust-address" placeholder="Delivery Address" required></textarea>
+                    <button type="button" id="locate-me-btn" class="locate-btn" title="Auto-locate my position">
+                        <i class="fas fa-map-marker-alt"></i> Locate Me
+                    </button>
                 </div>
+                <p id="location-status" class="location-status"></p>
                 <button type="submit" id="checkout-btn" class="btn">Place Order</button>
             </form>
         </div>

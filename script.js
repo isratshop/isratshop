@@ -1,5 +1,5 @@
 // Product Data
-const products = [
+const initialProducts = [
     {
         id: 1,
         name: "Elegant Watch",
@@ -44,6 +44,106 @@ const products = [
     }
 ];
 
+// Initial Settings if none exist
+const initialSettings = {
+    siteName: "Israt Jahan Shop",
+    heroTitle: "ISRAT JAHAN SMART DC CHARGING FAN",
+    heroSub: "বাতাস ও আলো, সবসময় সাথে থাকুন",
+    email: "abuyusufup@gmail.com",
+    phone: "01818665264",
+    facebook: "https://www.facebook.com/abuyusufshapon",
+    about: "Welcome to Israt Jahan Shop, where quality meets elegance..."
+};
+
+// Load Products and Settings from LocalStorage
+let products = JSON.parse(localStorage.getItem('shop_products')) || initialProducts;
+let settings = JSON.parse(localStorage.getItem('shop_settings')) || initialSettings;
+
+// Update Site Content based on Settings
+function applySettings() {
+    // Website Name
+    document.querySelectorAll('.logo h1').forEach(logo => logo.innerText = settings.siteName);
+    document.title = settings.siteName + " - Premium Products";
+    
+    // Hero Section (if on home page)
+    const heroSection = document.querySelector('.hero');
+    const heroTitle = document.querySelector('.hero-content h2');
+    const heroSub = document.querySelector('.hero-content p');
+    if (heroSection && settings.heroImg) {
+        heroSection.style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${settings.heroImg}')`;
+        heroSection.style.backgroundSize = 'cover';
+        heroSection.style.backgroundPosition = 'center';
+    }
+    if (heroTitle) heroTitle.innerText = settings.heroTitle;
+    if (heroSub) heroSub.innerText = settings.heroSub;
+    
+    // Contact Info
+    const footerEmail = document.querySelector('.footer-section p:nth-child(2)');
+    const footerPhone = document.querySelector('.footer-section p:nth-child(3)');
+    if (footerEmail) footerEmail.innerText = "Email: " + settings.email;
+    if (footerPhone) footerPhone.innerText = "Phone: " + settings.phone;
+    
+    // Facebook Link
+    const fbLink = document.querySelector('.social-links a');
+    if (fbLink) fbLink.href = settings.facebook;
+
+    // About Page Content (if on about page)
+    const aboutTitle = document.querySelector('.about-content h2');
+    const aboutTextContainer = document.querySelector('.about-text');
+    if (aboutTitle) aboutTitle.innerText = "About " + settings.siteName;
+    if (aboutTextContainer) {
+        // Special formatting for the organized table layout
+        aboutTextContainer.innerHTML = `
+            <span class="about-highlight">প্রচণ্ড গরমেও থাকুন শান্ত ও সতেজ! 🌬️💡</span>
+            <p>লোডশেডিং নিয়ে আর দুশ্চিন্তা নয়! আমরা নিয়ে এসেছি আধুনিক প্রযুক্তির স্মার্ট ডিসি রিচার্জেবল চার্জিং ফ্যান ও লাইট। এটি আপনাকে দিবে দীর্ঘক্ষণ শক্তিশালী বাতাস এবং উজ্জ্বল আলো, যা আপনার ঘরকে রাখবে আরামদায়ক।</p>
+            
+            <h3 style="margin-top: 2rem; color: var(--secondary-color);">মূল বৈশিষ্ট্যসমূহ:</h3>
+            <table class="about-features-table">
+                <tr>
+                    <td>শক্তিশালী ব্যাকআপ</td>
+                    <td>হাই-কোয়ালিটি লিথিয়াম ব্যাটারি, যা একবার চার্জে দীর্ঘ সময় ব্যাকআপ নিশ্চিত করে।</td>
+                </tr>
+                <tr>
+                    <td>ডুয়াল ফাংশন</td>
+                    <td>একই সাথে ঠান্ডা বাতাস এবং উজ্জ্বল এলইডি লাইটের সুবিধা।</td>
+                </tr>
+                <tr>
+                    <td>স্মার্ট কন্ট্রোল</td>
+                    <td>মাল্টি-স্পিড মোড এবং অ্যাডজাস্টেবল ব্রাইটনেস।</td>
+                </tr>
+                <tr>
+                    <td>পোর্টেবল ডিজাইন</td>
+                    <td>ওজনে হালকা হওয়ায় বেডরুম, ড্রয়িং রুম বা ভ্রমণের সময় সহজেই সাথে রাখা যায়।</td>
+                </tr>
+                <tr>
+                    <td>লো নয়েজ অপারেশন</td>
+                    <td>কোনো শব্দ ছাড়াই দিবে প্রশান্তির ঘুম।</td>
+                </tr>
+                <tr>
+                    <td>সোলার সাপোর্ট</td>
+                    <td>ইলেকট্রিসিটি ছাড়াও সোলার প্যানেল দিয়ে চার্জ করার সুবিধা (মডেলভেদে)।</td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="color: var(--secondary-color);">প্যাকেজে যা থাকছে:</h3>
+                <ul class="package-list">
+                    <li>✅ ১টি স্মার্ট ডিসি ফ্যান ও লাইট</li>
+                    <li>✅ ১টি প্রিমিয়াম চার্জিং ক্যাবল</li>
+                </ul>
+            </div>
+
+            <div class="offer-price">
+                অফার মূল্য: [আপনার মূল্য লিখুন] টাকা মাত্র!
+            </div>
+        `;
+    }
+
+    // WhatsApp Bubble
+    const waBubble = document.querySelector('.whatsapp-bubble');
+    if (waBubble) waBubble.href = `https://wa.me/88${settings.phone.replace(/\s+/g, '')}`;
+}
+
 // State
 let cart = [];
 
@@ -61,6 +161,61 @@ const productDetailBody = document.getElementById('product-detail-body');
 const closeProductModal = document.querySelector('.close-product-modal');
 const menuToggle = document.getElementById('menu-toggle');
 const navLinks = document.getElementById('nav-links');
+
+// Location Functionality
+function setupLocation() {
+    const locateBtn = document.getElementById('locate-me-btn');
+    const addressInput = document.getElementById('cust-address');
+    const statusText = document.getElementById('location-status');
+
+    if (!locateBtn) return;
+
+    locateBtn.onclick = () => {
+        if (!navigator.geolocation) {
+            statusText.innerText = "Geolocation is not supported by your browser";
+            statusText.className = "location-status error";
+            return;
+        }
+
+        statusText.innerText = "Locating...";
+        statusText.className = "location-status";
+        locateBtn.disabled = true;
+
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const { latitude, longitude } = position.coords;
+                
+                try {
+                    // Using OpenStreetMap's Nominatim API for free reverse geocoding
+                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`);
+                    const data = await response.json();
+                    
+                    if (data && data.display_name) {
+                        addressInput.value = data.display_name;
+                        statusText.innerText = "Location updated successfully!";
+                        statusText.className = "location-status success";
+                    } else {
+                        addressInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+                        statusText.innerText = "Coordinates found, but address couldn't be resolved.";
+                        statusText.className = "location-status success";
+                    }
+                } catch (error) {
+                    console.error("Geocoding error:", error);
+                    addressInput.value = `Lat: ${latitude}, Lon: ${longitude}`;
+                    statusText.innerText = "Coordinates found, but address lookup failed.";
+                    statusText.className = "location-status success";
+                }
+                locateBtn.disabled = false;
+            },
+            (error) => {
+                statusText.innerText = `Error: ${error.message}`;
+                statusText.className = "location-status error";
+                locateBtn.disabled = false;
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+    };
+}
 
 // Initialize Products
 function displayProducts() {
@@ -215,10 +370,10 @@ checkoutForm.onsubmit = (e) => {
     // 1. Direct Email via mailto:
     const subject = encodeURIComponent(`New Order from ${name}`);
     const body = encodeURIComponent(orderSummary);
-    const mailtoUrl = `mailto:abuyusufup@gmail.com?subject=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:${settings.email}?subject=${subject}&body=${body}`;
 
     // 2. WhatsApp Notification (Direct)
-    const adminWhatsApp = "8801818665264"; 
+    const adminWhatsApp = `88${settings.phone.replace(/\s+/g, '')}`; 
     const whatsappUrl = `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(orderSummary)}`;
 
     // Choice for the user
@@ -238,3 +393,5 @@ checkoutForm.onsubmit = (e) => {
 
 // Initial Load
 displayProducts();
+setupLocation();
+applySettings();

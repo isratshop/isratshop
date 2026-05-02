@@ -1,6 +1,21 @@
 // Load Products and Settings from Data file (data.js) or LocalStorage
-let products = JSON.parse(localStorage.getItem('shop_products')) || initialProducts;
-let settings = JSON.parse(localStorage.getItem('shop_settings')) || initialSettings;
+let products = JSON.parse(localStorage.getItem('shop_products'));
+if (!products || products.length === 0) {
+    products = typeof initialProducts !== 'undefined' ? initialProducts : [];
+}
+
+let settings = JSON.parse(localStorage.getItem('shop_settings'));
+if (!settings || Object.keys(settings).length === 0) {
+    settings = typeof initialSettings !== 'undefined' ? initialSettings : {};
+}
+
+// Currency Formatter for Bangla Taka
+function formatTaka(amount) {
+    return '৳' + Number(amount).toLocaleString('en-IN', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
 
 // Update Site Content based on Settings
 function applySettings() {
@@ -167,7 +182,7 @@ function displayProducts() {
         <div class="product-card" onclick="openProductDetail(${product.id})">
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
-            <p class="price">$${product.price.toFixed(2)}</p>
+            <p class="price">${formatTaka(product.price)}</p>
             <button class="btn" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
         </div>
     `).join('');
@@ -207,7 +222,7 @@ function openProductDetail(productId) {
             </div>
             <div class="product-detail-info">
                 <h2>${product.name}</h2>
-                <p class="price">$${product.price.toFixed(2)}</p>
+                <p class="price">${formatTaka(product.price)}</p>
                 <div class="description">
                     <p>${product.description}</p>
                 </div>
@@ -253,7 +268,7 @@ function updateCart() {
     
     // Update Total Price
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotalPrice.innerText = total.toFixed(2);
+    cartTotalPrice.innerText = formatTaka(total).replace('৳', '');
 }
 
 function renderCartItems() {
@@ -266,7 +281,7 @@ function renderCartItems() {
         <div class="cart-item">
             <div>
                 <h4>${item.name}</h4>
-                <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+                <p>${formatTaka(item.price)} x ${item.quantity}</p>
             </div>
             <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
         </div>
@@ -307,8 +322,8 @@ checkoutForm.onsubmit = (e) => {
     const total = cartTotalPrice.innerText;
 
     // Create Order Summary
-    const orderItems = cart.map(item => `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`).join('\n');
-    const orderSummary = `New Order from Israt Jahan Shop\n\nCustomer: ${name}\nPhone: ${phone}\nAddress: ${address}\nTotal: $${total}\n\nItems:\n${orderItems}`;
+    const orderItems = cart.map(item => `${item.name} (x${item.quantity}) - ${formatTaka(item.price * item.quantity)}`).join('\n');
+    const orderSummary = `New Order from ${settings.siteName}\n\nCustomer: ${name}\nPhone: ${phone}\nAddress: ${address}\nTotal: ${formatTaka(total)}\n\nItems:\n${orderItems}`;
 
     // 1. Direct Email via mailto:
     const subject = encodeURIComponent(`New Order from ${name}`);
@@ -335,8 +350,11 @@ checkoutForm.onsubmit = (e) => {
 };
 
 // Initial Load
-window.onload = () => {
+function init() {
     displayProducts();
     setupLocation();
     applySettings();
-};
+}
+
+// Run init
+init();

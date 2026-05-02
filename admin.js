@@ -1,6 +1,13 @@
 // Load Data from data.js or LocalStorage
-let products = JSON.parse(localStorage.getItem('shop_products')) || [...initialProducts];
-let settings = JSON.parse(localStorage.getItem('shop_settings')) || { ...initialSettings };
+let products = JSON.parse(localStorage.getItem('shop_products'));
+if (!products || products.length === 0) {
+    products = typeof initialProducts !== 'undefined' ? [...initialProducts] : [];
+}
+
+let settings = JSON.parse(localStorage.getItem('shop_settings'));
+if (!settings || Object.keys(settings).length === 0) {
+    settings = typeof initialSettings !== 'undefined' ? { ...initialSettings } : {};
+}
 
 // DOM Elements
 const adminProductList = document.getElementById('admin-product-list');
@@ -126,12 +133,20 @@ function saveSettings() {
     document.querySelector('.logo h1').innerText = settings.siteName + " Admin";
 }
 
+// Currency Formatter for Bangla Taka
+function formatTaka(amount) {
+    return '৳' + Number(amount).toLocaleString('en-IN', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
+
 function renderAdminProducts() {
     adminProductList.innerHTML = products.map(product => `
         <tr>
             <td><img src="${product.image}" alt="${product.name}"></td>
             <td>${product.name}</td>
-            <td>$${product.price.toFixed(2)}</td>
+            <td>${formatTaka(product.price)}</td>
             <td class="admin-actions">
                 <button class="edit-btn" onclick="editProduct(${product.id})"><i class="fas fa-edit"></i></button>
                 <button class="delete-btn" onclick="deleteProduct(${product.id})"><i class="fas fa-trash"></i></button>

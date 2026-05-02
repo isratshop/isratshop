@@ -4,10 +4,24 @@
 const initialProducts = [
     {
         "id": 1,
-        "name": "SMART DC CHARGING FAN & LIGHT",
-        "price": 8000,
-        "image": "Gemini_Generated_Image_xhh6hexhh6hexhh6.png",
-        "description": "প্রচণ্ড গরমেও থাকুন শান্ত ও সতেজ! 🌬️💡\n\nলোডশেডিং নিয়ে আর দুশ্চিন্তা নয়! আমরা নিয়ে এসেছি আধুনিক প্রযুক্তির স্মার্ট ডিসি রিচার্জেবল চার্জিং ফ্যান ও লাইট। এটি আপনাকে দিবে দীর্ঘক্ষণ শক্তিশালী বাতাস এবং উজ্জ্বল আলো, যা আপনার ঘরকে রাখবে আরামদায়ক।"
+        "name": "Elegant Watch",
+        "price": 120,
+        "description": "A sophisticated timepiece that combines classic design with modern precision. Perfect for any occasion.",
+        "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+        "id": 2,
+        "name": "Wireless Headphones",
+        "price": 85,
+        "description": "Experience crystal-clear sound with our noise-canceling wireless headphones. Comfort meets high-fidelity audio.",
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+        "id": 3,
+        "name": "Smart Camera",
+        "price": 150,
+        "description": "Capture life's best moments with stunning clarity. Our smart camera features advanced autofocus and 4K video.",
+        "image": "https://images.unsplash.com/photo-1526170315830-ef18a283ac16?auto=format&fit=crop&w=500&q=80"
     }
 ];
 
@@ -15,9 +29,9 @@ const initialSettings = {
     "siteName": "Israt Jahan Shop",
     "heroTitle": "ISRAT JAHAN SMART DC CHARGING FAN",
     "heroImg": "hero.jpg",
-    "heroSub": "বাতাস ও আলো, সবসময় সাথে থাকুক",
+    "heroSub": "বাতাস ও আলো, সবসময় সাথে থাকুন",
     "email": "abuyusufup@gmail.com",
     "phone": "01818665264",
     "facebook": "https://www.facebook.com/abuyusufshapon",
-    "about": "প্রচণ্ড গরমেও থাকুন শান্ত ও সতেজ! 🌬️💡\n\nলোডশেডিং নিয়ে আর দুশ্চিন্তা নয়! আমরা নিয়ে এসেছি আধুনিক প্রযুক্তির স্মার্ট ডিসি রিচার্জেবল চার্জিং ফ্যান ও লাইট। এটি আপনাকে দিবে দীর্ঘক্ষণ শক্তিশালী বাতাস এবং উজ্জ্বল আলো, যা আপনার ঘরকে রাখবে আরামদায়ক।\n\nমূল বৈশিষ্ট্যসমূহ:\nশক্তিশালী ব্যাকআপ: হাই-কোয়ালিটি লিথিয়াম ব্যাটারি, যা একবার চার্জে দীর্ঘ সময় ব্যাকআপ নিশ্চিত করে।\n\nডুয়াল ফাংশন: একই সাথে ঠান্ডা বাতাস এবং উজ্জ্বল এলইডি লাইটের সুবিধা।\n\nস্মার্ট কন্ট্রোল: মাল্টি-স্পিড মোড এবং অ্যাডজাস্টেবল ব্রাইটনেস।\n\nপোর্টেবল ডিজাইন: ওজনে হালকা হওয়ায় বেডরুম, ড্রয়িং রুম বা ভ্রমণের সময় সহজেই সাথে রাখা যায়।\n\nলো নয়েজ অপারেশন: কোনো শব্দ ছাড়াই দিবে প্রশান্তির ঘুম।\n\nসোলার সাপোর্ট: ইলেকট্রিসিটি ছাড়াও সোলার প্যানেল দিয়ে চার্জ করার সুবিধা (মডেলভেদে)।\n\nপ্যাকেজে যা থাকছে:\n✅ ১টি স্মার্ট ডিসি ফ্যান ও লাইট\n✅ ১টি প্রিমিয়াম চার্জিং ক্যাবল\n\nঅফার মূল্য: [আপনার মূল্য লিখুন] টাকা মাত্র!"
+    "about": "Welcome to Israt Jahan Shop, where quality meets elegance..."
 };

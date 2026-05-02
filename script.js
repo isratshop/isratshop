@@ -1,61 +1,4 @@
-// Product Data
-const initialProducts = [
-    {
-        id: 1,
-        name: "Elegant Watch",
-        price: 120.00,
-        description: "A sophisticated timepiece that combines classic design with modern precision. Perfect for any occasion.",
-        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 2,
-        name: "Wireless Headphones",
-        price: 85.00,
-        description: "Experience crystal-clear sound with our noise-canceling wireless headphones. Comfort meets high-fidelity audio.",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 3,
-        name: "Smart Camera",
-        price: 150.00,
-        description: "Capture life's best moments with stunning clarity. Our smart camera features advanced autofocus and 4K video.",
-        image: "https://images.unsplash.com/photo-1526170315830-ef18a283ac16?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 4,
-        name: "Canvas Shoes",
-        price: 45.00,
-        description: "Durable and stylish canvas shoes for everyday wear. Lightweight design with a cushioned sole for all-day comfort.",
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 5,
-        name: "Leather Bag",
-        price: 60.00,
-        description: "Handcrafted from premium leather, this bag offers both elegance and utility. Spacious enough for all your essentials.",
-        image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 6,
-        name: "Sunglasses",
-        price: 25.00,
-        description: "Protect your eyes in style. These polarized sunglasses offer 100% UV protection and a sleek, modern frame.",
-        image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=500&q=80"
-    }
-];
-
-// Initial Settings if none exist
-const initialSettings = {
-    siteName: "Israt Jahan Shop",
-    heroTitle: "ISRAT JAHAN SMART DC CHARGING FAN",
-    heroSub: "বাতাস ও আলো, সবসময় সাথে থাকুন",
-    email: "abuyusufup@gmail.com",
-    phone: "01818665264",
-    facebook: "https://www.facebook.com/abuyusufshapon",
-    about: "Welcome to Israt Jahan Shop, where quality meets elegance..."
-};
-
-// Load Products and Settings from LocalStorage
+// Load Products and Settings from Data file (data.js) or LocalStorage
 let products = JSON.parse(localStorage.getItem('shop_products')) || initialProducts;
 let settings = JSON.parse(localStorage.getItem('shop_settings')) || initialSettings;
 
@@ -392,6 +335,8 @@ checkoutForm.onsubmit = (e) => {
 };
 
 // Initial Load
-displayProducts();
-setupLocation();
-applySettings();
+window.onload = () => {
+    displayProducts();
+    setupLocation();
+    applySettings();
+};

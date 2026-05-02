@@ -1,64 +1,6 @@
-// Initial Products if none exist in LocalStorage
-const initialProducts = [
-    {
-        id: 1,
-        name: "Elegant Watch",
-        price: 120.00,
-        description: "A sophisticated timepiece that combines classic design with modern precision. Perfect for any occasion.",
-        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 2,
-        name: "Wireless Headphones",
-        price: 85.00,
-        description: "Experience crystal-clear sound with our noise-canceling wireless headphones. Comfort meets high-fidelity audio.",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 3,
-        name: "Smart Camera",
-        price: 150.00,
-        description: "Capture life's best moments with stunning clarity. Our smart camera features advanced autofocus and 4K video.",
-        image: "https://images.unsplash.com/photo-1526170315830-ef18a283ac16?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 4,
-        name: "Canvas Shoes",
-        price: 45.00,
-        description: "Durable and stylish canvas shoes for everyday wear. Lightweight design with a cushioned sole for all-day comfort.",
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 5,
-        name: "Leather Bag",
-        price: 60.00,
-        description: "Handcrafted from premium leather, this bag offers both elegance and utility. Spacious enough for all your essentials.",
-        image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=500&q=80"
-    },
-    {
-        id: 6,
-        name: "Sunglasses",
-        price: 25.00,
-        description: "Protect your eyes in style. These polarized sunglasses offer 100% UV protection and a sleek, modern frame.",
-        image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=500&q=80"
-    }
-];
-
-// Initial Settings if none exist
-const initialSettings = {
-    siteName: "Israt Jahan Shop",
-    heroTitle: "ISRAT JAHAN SMART DC CHARGING FAN",
-    heroImg: "hero.jpg",
-    heroSub: "বাতাস ও আলো, সবসময় সাথে থাকুন",
-    email: "abuyusufup@gmail.com",
-    phone: "01818665264",
-    facebook: "https://www.facebook.com/abuyusufshapon",
-    about: "Welcome to Israt Jahan Shop, where quality meets elegance. We take immense pride in curating a collection of products that aren't just items, but experiences designed to enhance your lifestyle. Each product in our shop is handpicked for its superior craftsmanship, durability, and timeless appeal.\n\nOur commitment to excellence ensures that when you shop with us, you're investing in the very best. From the latest fashion trends to essential daily gadgets, we guarantee that our products will exceed your expectations and bring a touch of premium quality to your home. Thank you for choosing us as your trusted shopping partner!"
-};
-
-// Load Data
-let products = JSON.parse(localStorage.getItem('shop_products')) || initialProducts;
-let settings = JSON.parse(localStorage.getItem('shop_settings')) || initialSettings;
+// Load Data from data.js or LocalStorage
+let products = JSON.parse(localStorage.getItem('shop_products')) || [...initialProducts];
+let settings = JSON.parse(localStorage.getItem('shop_settings')) || { ...initialSettings };
 
 // DOM Elements
 const adminProductList = document.getElementById('admin-product-list');
@@ -68,10 +10,7 @@ const addProductBtn = document.getElementById('add-product-btn');
 const closeFormModal = document.getElementById('close-form-modal');
 const formTitle = document.getElementById('form-title');
 const settingsForm = document.getElementById('site-settings-form');
-const generateCodeBtn = document.getElementById('generate-code-btn');
-const codeModal = document.getElementById('code-modal');
-const closeCodeModal = document.getElementById('close-code-modal');
-const generatedCodeArea = document.getElementById('generated-code');
+const downloadDataBtn = document.getElementById('download-data-btn');
 
 // Initialize Admin Dashboard
 function initAdmin() {
@@ -79,24 +18,25 @@ function initAdmin() {
     loadSettingsIntoForm();
     setupFileUploads();
     
-    generateCodeBtn.onclick = () => {
-        const code = `// COPY THIS TO BOTH admin.js AND script.js
+    downloadDataBtn.onclick = () => {
+        const fileContent = `// This file holds all your website data. 
+// You can edit this file directly or use the Admin Dashboard to download a new version.
+
 const initialProducts = ${JSON.stringify(products, null, 4)};
 
 const initialSettings = ${JSON.stringify(settings, null, 4)};`;
         
-        generatedCodeArea.value = code;
-        codeModal.style.display = "block";
-    };
-
-    closeCodeModal.onclick = () => {
-        codeModal.style.display = "none";
-    };
-
-    window.copyGeneratedCode = () => {
-        generatedCodeArea.select();
-        document.execCommand('copy');
-        alert("Code copied! Now paste it into your admin.js and script.js files.");
+        const blob = new Blob([fileContent], { type: 'text/javascript' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'data.js';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        alert("data.js has been downloaded! Replace the old data.js in your folder with this one and upload to GitHub.");
     };
 
     addProductBtn.onclick = () => {
@@ -123,9 +63,6 @@ const initialSettings = ${JSON.stringify(settings, null, 4)};`;
     window.onclick = (event) => {
         if (event.target == productFormModal) {
             productFormModal.style.display = "none";
-        }
-        if (event.target == codeModal) {
-            codeModal.style.display = "none";
         }
     };
 }

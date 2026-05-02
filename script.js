@@ -198,7 +198,7 @@ function displayProducts() {
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p class="price">${formatTaka(product.price)}</p>
-            <button class="btn" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
+            <button class="btn" onclick="event.stopPropagation(); buyNow(${product.id})">Place Order</button>
         </div>
     `).join('');
 }
@@ -242,8 +242,7 @@ function openProductDetail(productId) {
                     <p>${product.description}</p>
                 </div>
                 <div class="product-detail-actions">
-                    <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
-                    <button class="btn" style="background-color: var(--secondary-color);" onclick="buyNow(${product.id})">Place Order</button>
+                    <button class="btn" style="background-color: var(--secondary-color); width: 100%;" onclick="buyNow(${product.id})">Place Order</button>
                 </div>
             </div>
         </div>

@@ -21,6 +21,52 @@ function formatTaka(amount) {
     });
 }
 
+// Dynamic formatter for the About page text
+function formatAboutText(text) {
+    if (!text) return '';
+    
+    const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+    let html = '';
+    let inTable = false;
+    let inList = false;
+
+    lines.forEach((line, index) => {
+        if (index === 0) {
+            html += `<span class="about-highlight">${line}</span>`;
+        } else if (line.includes('মূল বৈশিষ্ট্যসমূহ:')) {
+            if (inTable) html += '</table>';
+            if (inList) { html += '</ul></div>'; inList = false; }
+            html += `<h3 style="margin-top: 2rem; color: var(--secondary-color);">${line}</h3>`;
+            html += '<table class="about-features-table">';
+            inTable = true;
+        } else if (line.includes('প্যাকেজে যা থাকছে:')) {
+            if (inTable) { html += '</table>'; inTable = false; }
+            if (inList) html += '</ul></div>';
+            html += `<div style="margin-top: 2rem;"><h3 style="color: var(--secondary-color);">${line}</h3>`;
+            html += '<ul class="package-list">';
+            inList = true;
+        } else if (line.includes('অফার মূল্য:')) {
+            if (inTable) { html += '</table>'; inTable = false; }
+            if (inList) { html += '</ul></div>'; inList = false; }
+            html += `<div class="offer-price">${line}</div>`;
+        } else if (inTable && line.includes(':')) {
+            const [key, ...valParts] = line.split(':');
+            html += `<tr><td>${key.trim()}</td><td>${valParts.join(':').trim()}</td></tr>`;
+        } else if (inList && (line.startsWith('✅') || line.startsWith('-') || line.startsWith('*'))) {
+            html += `<li>${line}</li>`;
+        } else {
+            if (inTable) { html += '</table>'; inTable = false; }
+            if (inList) { html += '</ul></div>'; inList = false; }
+            html += `<p>${line}</p>`;
+        }
+    });
+
+    if (inTable) html += '</table>';
+    if (inList) html += '</ul></div>';
+
+    return html;
+}
+
 // Update Site Content based on Settings
 function applySettings() {
     // Website Name
@@ -54,51 +100,7 @@ function applySettings() {
     const aboutTextContainer = document.querySelector('.about-text');
     if (aboutTitle) aboutTitle.innerText = "About " + settings.siteName;
     if (aboutTextContainer) {
-        // Special formatting for the organized table layout
-        aboutTextContainer.innerHTML = `
-            <span class="about-highlight">প্রচণ্ড গরমেও থাকুন শান্ত ও সতেজ! 🌬️💡</span>
-            <p>লোডশেডিং নিয়ে আর দুশ্চিন্তা নয়! আমরা নিয়ে এসেছি আধুনিক প্রযুক্তির স্মার্ট ডিসি রিচার্জেবল চার্জিং ফ্যান ও লাইট। এটি আপনাকে দিবে দীর্ঘক্ষণ শক্তিশালী বাতাস এবং উজ্জ্বল আলো, যা আপনার ঘরকে রাখবে আরামদায়ক।</p>
-            
-            <h3 style="margin-top: 2rem; color: var(--secondary-color);">মূল বৈশিষ্ট্যসমূহ:</h3>
-            <table class="about-features-table">
-                <tr>
-                    <td>শক্তিশালী ব্যাকআপ</td>
-                    <td>হাই-কোয়ালিটি লিথিয়াম ব্যাটারি, যা একবার চার্জে দীর্ঘ সময় ব্যাকআপ নিশ্চিত করে।</td>
-                </tr>
-                <tr>
-                    <td>ডুয়াল ফাংশন</td>
-                    <td>একই সাথে ঠান্ডা বাতাস এবং উজ্জ্বল এলইডি লাইটের সুবিধা।</td>
-                </tr>
-                <tr>
-                    <td>স্মার্ট কন্ট্রোল</td>
-                    <td>মাল্টি-স্পিড মোড এবং অ্যাডজাস্টেবল ব্রাইটনেস।</td>
-                </tr>
-                <tr>
-                    <td>পোর্টেবল ডিজাইন</td>
-                    <td>ওজনে হালকা হওয়ায় বেডরুম, ড্রয়িং রুম বা ভ্রমণের সময় সহজেই সাথে রাখা যায়।</td>
-                </tr>
-                <tr>
-                    <td>লো নয়েজ অপারেশন</td>
-                    <td>কোনো শব্দ ছাড়াই দিবে প্রশান্তির ঘুম।</td>
-                </tr>
-                <tr>
-                    <td>সোলার সাপোর্ট</td>
-                    <td>ইলেকট্রিসিটি ছাড়াও সোলার প্যানেল দিয়ে চার্জ করার সুবিধা (মডেলভেদে)।</td>
-                </tr>
-            </table>
-
-            <div style="margin-top: 2rem;">
-                <h3 style="color: var(--secondary-color);">প্যাকেজে যা থাকছে:</h3>
-                <ul class="package-list">
-                    <li>✅ ১টি স্মার্ট ডিসি ফ্যান ও লাইট</li>
-                    <li>✅ ১টি প্রিমিয়াম চার্জিং ক্যাবল</li>
-                </ul>
-            </div>
-
-            <div class="offer-price">
-                অফার মূল্য: [আপনার মূল্য লিখুন] টাকা মাত্র!
-            </div>
-        `;
+        aboutTextContainer.innerHTML = formatAboutText(settings.about);
     }
 
     // WhatsApp Bubble

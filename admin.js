@@ -35,6 +35,9 @@ function initAdmin() {
     loadSettingsIntoForm();
     setupFileUploads();
     
+    // Set admin logo text from settings
+    document.querySelector('.logo h1').innerText = (settings.siteName || "Israt Jahan Shop") + " Admin";
+    
     downloadDataBtn.onclick = () => {
         const fileContent = `// This file holds all your website data. 
 // You can edit this file directly or use the Admin Dashboard to download a new version.

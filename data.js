@@ -15,7 +15,7 @@ const initialSettings = {
     "siteName": "Israt Jahan Shop",
     "heroTitle": "ISRAT JAHAN SMART DC CHARGING FAN",
     "heroImg": "hero.jpg",
-    "heroSub": "বাতাস ও আলো, সবসময় সাথে থাকুন",
+    "heroSub": "বাতাস ও আলো, সবসময় সাথে থাকুক",
     "email": "abuyusufup@gmail.com",
     "phone": "01818665264",
     "facebook": "https://www.facebook.com/abuyusufshapon",

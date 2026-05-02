@@ -473,6 +473,18 @@ footer {
     color: var(--white);
 }
 
+.dev-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+.dev-link:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
 .nav-extra {
     display: flex;
     align-items: center;
